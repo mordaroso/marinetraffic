@@ -23,7 +23,27 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Authentication
+
+You authenticate to the MarineTraffic API by providing your secret API key in the request.
+To use your API key, you need only set Marinetraffic.api_key equal to the key. The Ruby library will automatically send this key in each request.
+
+```ruby
+require "stripe"
+Marinetraffic.api_key = "2571121d07b9ce09c1abc34db75606a840a2c68c"
+```
+
+### Find vessels
+
+You can call vessel informations by the Vessel.find method. This method accepts a *MMSI Number* and an optional flag for *extended data* (false by default).
+
+```ruby
+vessel = Marinetraffic::Vessel.find("311026000", true)
+vessel.mmsi      # => "311026000"
+vessel.lat       # => "54.520730"
+vessel.lng       # => "10.421800"
+vessel.ship_name # => "NINA"
+```
 
 ## Development
 
