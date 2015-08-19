@@ -1,4 +1,4 @@
-require 'minitest_helper'
+require File.expand_path('../../minitest_helper.rb', __FILE__)
 
 module Marinetraffic
   class VesselTest < Minitest::Test
