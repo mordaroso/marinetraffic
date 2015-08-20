@@ -29,7 +29,7 @@ You authenticate to the MarineTraffic API by providing your secret API key in th
 To use your API key, you need only set Marinetraffic.api_key equal to the key. The Ruby library will automatically send this key in each request.
 
 ```ruby
-require "stripe"
+require "marinetraffic"
 Marinetraffic.api_key = "2571121d07b9ce09c1abc34db75606a840a2c68c"
 ```
 
