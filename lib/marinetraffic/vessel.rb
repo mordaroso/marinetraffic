@@ -29,39 +29,43 @@ module Marinetraffic
       @year_built = attributes["year_built"]
     end
 
-    def self.find(mmsi, extended = false)
-      params = { mmsi: mmsi, timespan: 20 }
+    def self.find(mmsi, extended = false, options = {})
+      params = { mmsi: mmsi, timespan: 20 }.merge(options)
       params[:msgtype] = :extended if extended
       response = API.call(:exportvessel, params)
       list = JSON.parse(response.body).first
-      attributes = map_attributes(list)
+      attributes = map_attributes(list, extended)
       new(attributes)
     end
 
-    def self.map_attributes(list)
+    def self.map_attributes(list, extended)
       attributes = {}
       attributes["mmsi"] = list.shift
       attributes["lat"] = list.shift
       attributes["lon"] = list.shift
       attributes["speed"] = list.shift
       attributes["course"] = list.shift
-      attributes["status"] = list.shift
-      attributes["timestamp"] = list.shift
-      attributes["ship_type"] = list.shift
-      attributes["ship_name"] = list.shift
-      attributes["imo"] = list.shift
-      attributes["callsign"] = list.shift
-      attributes["flag"] = list.shift
-      attributes["current_port"] = list.shift
-      attributes["last_port"] = list.shift
-      attributes["last_port_time"] = list.shift
-      attributes["destination"] = list.shift
-      attributes["eta"] = list.shift
-      attributes["length"] = list.shift
-      attributes["draught"] = list.shift
-      attributes["grt"] = list.shift
-      attributes["dwt"] = list.shift
-      attributes["year_built"] = list.shift
+      if extended
+        attributes["timestamp"] = list.shift
+        attributes["ship_name"] = list.shift
+        attributes["ship_type"] = list.shift
+        attributes["imo"] = list.shift
+        attributes["callsign"] = list.shift
+        attributes["flag"] = list.shift
+        attributes["current_port"] = list.shift
+        attributes["last_port"] = list.shift
+        attributes["last_port_time"] = list.shift
+        attributes["destination"] = list.shift
+        attributes["eta"] = list.shift
+        attributes["length"] = list.shift
+        attributes["draught"] = list.shift
+        attributes["grt"] = list.shift
+        attributes["dwt"] = list.shift
+        attributes["year_built"] = list.shift
+      else
+        attributes["status"] = list.shift
+        attributes["timestamp"] = list.shift
+      end
       attributes
     end
   end
