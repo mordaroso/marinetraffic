@@ -2,7 +2,7 @@ module Marinetraffic
   class Vessel
 
     attr_reader :mmsi, :lat, :lon, :speed, :course, :status, :timestamp
-    attr_reader :ship_type, :ship_name, :imo, :callsign, :flag, :current_port, :last_port, :last_port_time, :destination, :eta, :length, :draught, :grt, :dwt, :year_built
+    attr_reader :ship_type, :ship_name, :imo, :callsign, :flag, :current_port, :last_port, :last_port_time, :destination, :eta, :length, :width, :draught, :grt, :dwt, :year_built
 
     def initialize(attributes = {})
       @mmsi = attributes["mmsi"]
@@ -23,6 +23,7 @@ module Marinetraffic
       @destination = attributes["destination"]
       @eta = attributes["eta"]
       @length = attributes["length"]
+      @width = attributes["width"]
       @draught = attributes["draught"]
       @grt = attributes["grt"]
       @dwt = attributes["dwt"]
@@ -58,6 +59,7 @@ module Marinetraffic
         attributes["destination"] = list.shift
         attributes["eta"] = list.shift
         attributes["length"] = list.shift
+        attributes["width"] = list.shift
         attributes["draught"] = list.shift
         attributes["grt"] = list.shift
         attributes["dwt"] = list.shift
