@@ -23,6 +23,13 @@ module Marinetraffic
       end
     end
 
+    def test_it_gives_empty_response
+      VCR.use_cassette('empty_vessel') do
+        vessel = Vessel.find("236111804")
+        assert_equal nil, vessel
+      end
+    end
+
     def test_it_throws_error_with_wrong_mmsi
       VCR.use_cassette('one_error_vessel') do
         assert_raises(Marinetraffic::MarinetrafficException) {

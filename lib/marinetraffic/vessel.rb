@@ -34,8 +34,12 @@ module Marinetraffic
       params = { mmsi: mmsi, timespan: 20 }.merge(options)
       params[:msgtype] = :extended if extended
       response = API.call(:exportvessel, params)
-      attributes = map_attributes(response.xpath("//row")[0], extended)
-      new(attributes)
+      result = response.xpath("//row")[0]
+
+      if result != nil
+        attributes = map_attributes(response.xpath("//row")[0], extended)
+        new(attributes)
+      end
     end
 
     def self.map_attributes(response, extended)
@@ -105,32 +109,32 @@ module Marinetraffic
           'AIS-SART (active), MOB-AIS, EPIRB-AIS'
         when 15
           'undefined = default (also used by AIS-SART, MOB-AIS and EPIRB-AIS under test)'
-       end
+        end
       end
 
     # http://help.marinetraffic.com/hc/en-us/articles/205579997-What-is-the-significance-of-the-AIS-SHIPTYPE-number-
     def ship_type_human
       return if ship_type == nil
       case ship_type / 10
-        when 1
-          'Reserved'
-        when 2
-          'Wing In Ground'
-        when 3
-          'Special Category'
-        when 4
-          'High-Speed Craft'
-        when 5
-          'Special Category'
-        when 6
-          'Passenger'
-        when 7
-          'Cargo'
-        when 8
-          'Tanker'
-        when 9
-          'Other'
-        end
+      when 1
+        'Reserved'
+      when 2
+        'Wing In Ground'
+      when 3
+        'Special Category'
+      when 4
+        'High-Speed Craft'
+      when 5
+        'Special Category'
+      when 6
+        'Passenger'
+      when 7
+        'Cargo'
+      when 8
+        'Tanker'
+      when 9
+        'Other'
       end
+    end
   end
 end
