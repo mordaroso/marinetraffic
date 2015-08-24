@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://services.marinetraffic.com/api/exportvessel/<APIKEY>/mmsi:316001801/timespan:20/protocol:json
+    uri: http://services.marinetraffic.com/api/exportvessel/<APIKEY>/mmsi:710013410/timespan:20/protocol:xml
     body:
       encoding: US-ASCII
       string: ''
@@ -19,27 +19,31 @@ http_interactions:
       message: OK
     headers:
       Set-Cookie:
-      - CAKEPHP=tibelkgt1ntt22so9033pt7m07; path=/
-      - SERVERID=www4; path=/
+      - CAKEPHP=0lf307ecr0i6odr3rrb7en6t27; path=/
+      - SERVERID=www2; path=/
       Expires:
-      - Wed, 19 Aug 2015 18:01:56 GMT
+      - Mon, 24 Aug 2015 14:36:35 GMT
       Access-Control-Allow-Origin:
       - http://services.marinetraffic.com
       Access-Control-Allow-Credentials:
       - 'true'
       Content-Type:
-      - application/json; charset=UTF-8
+      - application/xml; charset=UTF-8
       Content-Length:
-      - '81'
+      - '173'
       Accept-Ranges:
       - bytes
       Date:
-      - Wed, 19 Aug 2015 17:59:56 GMT
+      - Mon, 24 Aug 2015 14:34:36 GMT
       Cache-Control:
       - private
     body:
       encoding: ASCII-8BIT
-      string: '[["316001801","43.312910","-79.767740","80","244","0","2015-08-19T17:55:28"]]'
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <POS>
+          <row MMSI="710013410" LAT="-24.025670" LON="-45.837910" SPEED="162" COURSE="79" STATUS="0" TIMESTAMP="2015-08-24T14:19:42"/>
+        </POS>
     http_version: 
-  recorded_at: Wed, 19 Aug 2015 17:59:56 GMT
+  recorded_at: Mon, 24 Aug 2015 14:34:39 GMT
 recorded_with: VCR 2.9.3

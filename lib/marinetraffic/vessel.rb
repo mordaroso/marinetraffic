@@ -34,41 +34,103 @@ module Marinetraffic
       params = { mmsi: mmsi, timespan: 20 }.merge(options)
       params[:msgtype] = :extended if extended
       response = API.call(:exportvessel, params)
-      list = JSON.parse(response.body).first
-      attributes = map_attributes(list, extended)
+      attributes = map_attributes(response.xpath("//row")[0], extended)
       new(attributes)
     end
 
-    def self.map_attributes(list, extended)
+    def self.map_attributes(response, extended)
       attributes = {}
-      attributes["mmsi"] = list.shift
-      attributes["lat"] = list.shift
-      attributes["lon"] = list.shift
-      attributes["speed"] = list.shift
-      attributes["course"] = list.shift
+      attributes["mmsi"] = response['MMSI']
+      attributes["lat"] = response['LAT'].to_f
+      attributes["lon"] = response['LON'].to_f
+      attributes["speed"] = response['SPEED'].to_i
+      attributes["course"] = response['COURSE'].to_i
       if extended
-        attributes["timestamp"] = list.shift
-        attributes["ship_name"] = list.shift
-        attributes["ship_type"] = list.shift
-        attributes["imo"] = list.shift
-        attributes["callsign"] = list.shift
-        attributes["flag"] = list.shift
-        attributes["current_port"] = list.shift
-        attributes["last_port"] = list.shift
-        attributes["last_port_time"] = list.shift
-        attributes["destination"] = list.shift
-        attributes["eta"] = list.shift
-        attributes["length"] = list.shift
-        attributes["width"] = list.shift
-        attributes["draught"] = list.shift
-        attributes["grt"] = list.shift
-        attributes["dwt"] = list.shift
-        attributes["year_built"] = list.shift
+        attributes["timestamp"] = response['TIMESTAMP']
+        attributes["ship_name"] = response['SHIPNAME']
+        attributes["ship_type"] = response['SHIPTYPE'].to_i
+        attributes["imo"] = response['IMO']
+        attributes["callsign"] = response['CALLSIGN']
+        attributes["flag"] = response['FLAG']
+        attributes["current_port"] = response['CURRENT_PORT']
+        attributes["last_port"] = response['LAST_PORT']
+        attributes["last_port_time"] = response['LAST_PORT_TIME']
+        attributes["destination"] = response['DESTINATION']
+        attributes["eta"] = response['ETA']
+        attributes["length"] = response['LENGTH'].to_i
+        attributes["width"] = response['WIDTH'].to_i
+        attributes["draught"] = response['DRAUGHT'].to_i
+        attributes["grt"] = response['GRT'].to_i
+        attributes["dwt"] = response['DWT'].to_i
+        attributes["year_built"] = response['YEAR_BUILT'].to_i
       else
-        attributes["status"] = list.shift
-        attributes["timestamp"] = list.shift
+        attributes["status"] = response['STATUS'].to_i
+        attributes["timestamp"] = response['TIMESTAMP']
       end
       attributes
     end
+
+    # http://help.marinetraffic.com/hc/en-us/articles/203990998-What-is-the-significance-of-the-AIS-Navigational-Status-Values-
+    def status_human
+      case status
+        when  0
+          'under way using engine'
+        when  1
+          'at anchor'
+        when  2
+          'not under command '
+        when  3
+          'restricted maneuverability'
+        when  4
+          'constrained by her draught'
+        when  5
+          'moored'
+        when  6
+          'aground '
+        when  7
+          'engaged in fishing'
+        when  8
+          'under way sailing'
+        when  9
+          'reserved for future amendment of navigational status for ships carrying DG, HS, or MP, or IMO hazard or pollutant category C, high-speed craft (HSC)'
+        when 10
+          'reserved for future amendment of navigational status for ships carrying dangerous goods (DG), harmful substances (HS) or marine pollutants (MP), or IMO hazard or pollutant category A, wing in ground (WIG)'
+        when 11
+          'power-driven vessel towing astern (regional use)'
+        when 12
+          'power-driven vessel pushing ahead or towing alongside (regional use)'
+        when 13
+          'reserved for future use'
+        when 14
+          'AIS-SART (active), MOB-AIS, EPIRB-AIS'
+        when 15
+          'undefined = default (also used by AIS-SART, MOB-AIS and EPIRB-AIS under test)'
+       end
+      end
+
+    # http://help.marinetraffic.com/hc/en-us/articles/205579997-What-is-the-significance-of-the-AIS-SHIPTYPE-number-
+    def ship_type_human
+      return if ship_type == nil
+      case ship_type / 10
+        when 1
+          'Reserved'
+        when 2
+          'Wing In Ground'
+        when 3
+          'Special Category'
+        when 4
+          'High-Speed Craft'
+        when 5
+          'Special Category'
+        when 6
+          'Passenger'
+        when 7
+          'Cargo'
+        when 8
+          'Tanker'
+        when 9
+          'Other'
+        end
+      end
   end
 end
