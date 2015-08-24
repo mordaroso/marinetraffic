@@ -115,7 +115,7 @@ module Marinetraffic
     # http://help.marinetraffic.com/hc/en-us/articles/205579997-What-is-the-significance-of-the-AIS-SHIPTYPE-number-
     def ship_type_human
       return if ship_type == nil
-      case ship_type / 10
+      case ship_type.to_s[0].to_i
       when 1
         'Reserved'
       when 2
