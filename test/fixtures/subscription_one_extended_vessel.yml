@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://services.marinetraffic.com/api/exportvessels/<SUBSCRIPTIONKEY>/timespan:10/msgtype:extended/protocol:xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - CAKEPHP=icujsh3k1ebjjg9oo6mesa9kv0; path=/
+      - SERVERID=www6; path=/
+      Expires:
+      - Wed, 26 Aug 2015 19:17:59 GMT
+      Access-Control-Allow-Origin:
+      - http://services.marinetraffic.com
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Content-Type:
+      - application/xml; charset=UTF-8
+      Content-Length:
+      - '330'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Wed, 26 Aug 2015 19:16:00 GMT
+      Cache-Control:
+      - private
+    body:
+      encoding: ASCII-8BIT
+      string: "\t<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<POS>\n  <row MMSI=\"236111804\"
+        LAT=\"8.963085\" LON=\"-79.569670\" SPEED=\"0\" COURSE=\"299\" TIMESTAMP=\"2015-08-26T19:09:12\"
+        SHIPNAME=\"FRISIA ROTTERDAM\" SHIPTYPE=\"79\" IMO=\"9299032\" CALLSIGN=\"ZDKT6\"
+        FLAG=\"GI\" CURRENT_PORT=\"BALBOA\" LAST_PORT=\"BALBOA\" LAST_PORT_TIME=\"2015-08-26T19:09:00\"
+        DESTINATION=\"CORINTO\" ETA=\"2015-08-28T18:00:00\" LENGTH=\"208\" WIDTH=\"30\"
+        DRAUGHT=\"95\" GRT=\"25406\" DWT=\"33783\" YEAR_BUILT=\"2004\"/>\n</POS>\n"
+    http_version: 
+  recorded_at: Wed, 26 Aug 2015 19:16:00 GMT
+recorded_with: VCR 2.9.3

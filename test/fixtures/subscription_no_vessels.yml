@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://services.marinetraffic.com/api/exportvessels/<SUBSCRIPTIONKEY>/timespan:20/protocol:xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Set-Cookie:
+      - CAKEPHP=5j834lla5u88flean55a786jc0; path=/
+      - SERVERID=www6; path=/
+      Expires:
+      - Wed, 26 Aug 2015 19:14:05 GMT
+      Access-Control-Allow-Origin:
+      - http://services.marinetraffic.com
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Content-Type:
+      - application/xml; charset=UTF-8
+      Content-Length:
+      - '182'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Wed, 26 Aug 2015 19:12:05 GMT
+      Cache-Control:
+      - private
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <POS/>
+    http_version:
+  recorded_at: Wed, 26 Aug 2015 19:12:06 GMT
+recorded_with: VCR 2.9.3
