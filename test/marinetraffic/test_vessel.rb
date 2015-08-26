@@ -32,7 +32,7 @@ module Marinetraffic
 
     def test_it_throws_error_with_wrong_mmsi
       VCR.use_cassette('one_error_vessel') do
-        assert_raises(Marinetraffic::MarinetrafficException) {
+        assert_raises(Marinetraffic::APIError) {
           Vessel.find("123")
         }
       end
