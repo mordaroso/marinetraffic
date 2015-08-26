@@ -15,4 +15,5 @@ VCR.configure do |c|
   c.cassette_library_dir = "test/fixtures"
   c.hook_into :webmock
   c.filter_sensitive_data('<APIKEY>') { Marinetraffic.api_key }
+  c.filter_sensitive_data('<SUBSCRIPTIONKEY>') { ENV['SUBSCRIPTION_KEY'] }
 end

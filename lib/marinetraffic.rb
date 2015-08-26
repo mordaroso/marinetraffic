@@ -1,6 +1,7 @@
 require "marinetraffic/version"
-require "marinetraffic/vessel"
 require "marinetraffic/api"
+require "marinetraffic/vessel"
+require "marinetraffic/subscription"
 
 require "marinetraffic/errors/marinetraffic_error"
 require "marinetraffic/errors/authentication_error"
