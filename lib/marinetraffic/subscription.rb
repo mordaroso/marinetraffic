@@ -10,7 +10,7 @@ module Marinetraffic
       params = { api_key: api_key }.merge(options)
       params[:msgtype] = :extended if extended
       response = API.call(:exportvessels, params)
-      result = response.xpath("//row[@MMSI=#{mmsi}]")[0]
+      result = response.xpath("//row[@MMSI='#{mmsi}']")[0]
 
       if result != nil
         attributes = Marinetraffic::Vessel.map_attributes(result, extended)
